@@ -28,11 +28,11 @@
 
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email"  @required(true)/>
-                                                <label for="inputEmail">E-mail</label>
+                                                <label for="email">E-mail</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password"  name="senha" @required(true)/>
-                                                <label for="inputPassword">Digite sua senha:</label>
+                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password"  name="password" @required(true)/>
+                                                <label for="password">Digite sua senha:</label>
                                             </div>
                                             <div class="form-check mb-3">
                                                 <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />

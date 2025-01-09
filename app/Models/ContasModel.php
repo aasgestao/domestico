@@ -10,7 +10,7 @@ class ContasModel extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['data','tipo', 'descricao', 'categoria', 'valor'];
+    protected $fillable = ['data','tipo', 'descricao', 'categoria', 'valor', 'status'];
 
     public function contas()
     {

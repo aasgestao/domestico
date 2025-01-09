@@ -36,6 +36,7 @@
                             <th>Descrição</th>
                             <th>Valor</th>
                             <th>Tipo</th>
+                            <th class="text-center">Status</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -48,6 +49,15 @@
                                     <td>{{ $conta->descricao }}</td>
                                     <td>{{ $conta->valor }}</td>
                                     <td>{{ $conta->tipo }}</td>
+                                    @if ($conta->status == "Pago")
+                                    <td class="text-center"><button data-id="{{ $conta->id }}"  type="button" class="btn btn-default alterStatus" data-bs-toggle="modal" data-bs-target="#statusModal"> 
+                                        <i class="fa-solid fa-circle-check" style="color: green"></i></button>
+                                    </td>
+                                        
+                                    @else
+                                        <td class="text-center"><button data-id="{{ $conta->id }}"  type="button" class="btn btn-default alterStatus" data-bs-toggle="modal" data-bs-target="#statusModal"> 
+                                        <i class="fa-solid fa-circle-xmark"style="color: red"></i></td></button>
+                                    @endif
                                     <td>
                                         Edit - Del</td>
                                 </tr>
@@ -56,6 +66,8 @@
 
                     </tbody>
                 </table>
+                <span> Total de Contas: </span>
+                {{-- //{{ $contas->links() }} --}}
             </div>
         </div>
     </div>
@@ -107,6 +119,13 @@
             <textarea name="descricao" id="descricao"  class="form-control" rows="20"></textarea>
             <label for="descricao">Descricão:</label>
         </div>
+        <div class="form-floating mb-3">
+            <select class="form-control" name="status" id="status">
+                <option value="Pago">Pago</option>
+                <option selected value="Em aberto">Em aberto</option>
+            </select>
+            <label for="status">Status: </label>
+        </div>
         
         <div class="d-flex justify-content-end">
             <button class="btn btn-primary" type="submit"> Criar </button>
@@ -115,5 +134,56 @@
     
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="statusModalLabel">Alterando status</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('contas.status')}}" method="post">
+            @csrf
+            @method('post')
+
+        <input type="hidden" name="id" id="idConta" value="">    
+        <div class="form-floating mb-3">
+            <select class="form-control" name="status" id="status">
+                <option value="Pago">Pago</option>
+                <option selected value="Em aberto">Em aberto</option>
+            </select>
+            <label for="status">Status: </label>
+        </div>
+        
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+      </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+    document.querySelectorAll('.alterStatus').forEach(button => {
+        button.addEventListener('click', function() {
+            //recuper os valores do botao
+            const idConta = this.getAttribute('data-id');
+            const dataIdConta = document.querySelector('#idConta');
+            console.log(idConta);
+            console.log(dataIdConta);
+
+            //preencher dados do modal
+
+            dataIdConta.value = idConta;
+
+
+        });
+    });
+</script>
 
 @endsection

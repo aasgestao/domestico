@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('contas', function (Blueprint $table) {
             $table->date('data')->after('id')->nullable();
+            $table->string('status')->after('categoria')->nullable();
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('contas', function (Blueprint $table) {
             $table->dropColumn('data');
+            $table->dropColumn('categoria');
         });
     }
 };

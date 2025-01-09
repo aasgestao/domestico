@@ -32,4 +32,18 @@ class ContasController extends Controller
 
         return redirect()->to('inicio')->with('success', 'Conta criada com sucesso !!!');
     }
+    public function status(Request $request)
+
+    {
+
+        //dd($request);
+        $status = $request->status;
+        $id = $request->id;
+
+        ContasModel::where('id', $id)->update([
+            'status'=> $status,
+        ]);
+
+        return redirect()->to('inicio')->with('success', 'Status alterado com sucesso !!!');
+    }
 }

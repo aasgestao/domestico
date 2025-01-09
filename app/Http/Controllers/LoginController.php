@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Models\CategoriaModel;
 use App\Models\ContasModel;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -20,25 +22,29 @@ class LoginController extends Controller
     }
     public function login(LoginRequest $loginRequest)
     {
-        
-        $loginRequest->validated();
+        //dd($loginRequest);
 
-        //$loginRequest->validated();
+        $teste = $loginRequest->validated();
 
-        //dd($request);
+        //dd($teste);
 
-        $email = $loginRequest->email;
-        $senha = $loginRequest->senha;
+        $authenticated = Auth::attempt(['email' => $loginRequest->email, 'password' => $loginRequest->password]);
 
-        $user_email = 'aasgestao@gmail.com';
-        $user_senha = '123456';
+        //dd($authenticated);
+        if (!$authenticated) {
+            //redirecionar para a pagina de login
 
-        if($user_senha == $senha && $user_email == $email){
+            return back()->withInput()->with('error', "Email ou senha incorreto");
 
-            return redirect()->route('inicio')->with('success', 'PARABEEEÉNS, login realizado com sucesso !!');
-        }else{
 
-            return back()->with('error', 'Usuário ou senha incorretos !!!');
         }
+
+        //buscar usuario
+        $user = Auth::user();
+
+        $user = User::find($user->id);
+        //dd($user);
+        return redirect()->route('inicio')->with('success', "Parabéns, logado com sucesso !!");       
+
     }
 }

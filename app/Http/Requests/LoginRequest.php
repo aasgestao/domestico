@@ -23,7 +23,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'required|email',
-            //'password'=> 'required',
+            'password'=> 'required',
         ];
     }
     public function messages(): array
@@ -31,7 +31,7 @@ class LoginRequest extends FormRequest
         return [
             'email.required'=> 'Necessário preencher o e-mail',
             'email.email'=>'O email precisar ter @ no conteudo!',
-            //'password.required'=> 'Necessário preencher a senha',
+            'password.required'=> 'Necessário preencher a senha',
         ];
     }
 }
