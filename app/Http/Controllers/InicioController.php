@@ -45,9 +45,9 @@ class InicioController extends Controller
         //     $totalFiltrado = $contas->sum('valor');
         // }
 
-        $total = $contas->count();
+        //$total = $contas->count();
 
-       dd($total);
+       //dd($total);
 
         return view('/inicio/index', compact('contas',  'categorias'), ['title' => 'Resumo Financeiro']);
 
