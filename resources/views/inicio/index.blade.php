@@ -17,7 +17,6 @@
 
         <div class="card-header hstack gap-2">
             <span>Dashboard</span>
-
             <span class="ms-auto">
                 <button class="btn btn-outline-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#criarRegistro" aria-controls="criarRegistro"><i class="fas fa-plus"></i>  Novo Registro</button>
                 {{-- <button class="btn btn-outline-success btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#receita" aria-controls="receita">Receita</button>
@@ -25,7 +24,56 @@
             </span>
 
         </div>
+        {{-- Filtros --}}
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Filtros / Pesquisa
+                </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <form  action="{{ route('inicio')}}" method="get">
+                            @csrf
+                            @method('get')
+                            <div class="row">
+                                <div class="form-floating col-3">
+                                    {{-- <label for="cliente" class="form-label">Cliente</label>
+                                    <select class="form-control" name="cliente" id="">
+                                        {{ print_r($clientes) }}
+                                        @foreach ($clientes as $cliente)
+                                        <option value="{{ $cliente->decricao }}">{{ $cliente->decricao }}</option>
+                                        @endforeach
+                                    </select> --}}
+                                </div>
+                                <div class="form-floating col-2">
+                                    <input type="date" name="data_inicial" placeholder="Data_inicio" class="form-control" >
+                                    <label for="data_inicial" > Data inicio: </label>
+                                </div>
+                                <div class="form-floating col-2">
+                                    <input type="date" name="data_final" placeholder="Data_inicio" class="form-control" >
+                                    <label for="data_final" > Data Final: </label>
+                                </div>
+                                <div class="input-group col">
+                                    <input class="form-control" type="text" name="busca" placeholder="Buscar por..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                                    <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- Final Filtros --}}
         <div class="card-body">
+            <div class="card-header">
+                <div class="row text-center">
+                    <div class="">
+                    <strong><span> Total de Contas: R$ {{ $total }}</span></strong>
+                </div>
+                </div>
+            </div>
             <x-alert />
             <div class="container">
                 <table class="table table-reponsive table-striped">
@@ -66,8 +114,11 @@
 
                     </tbody>
                 </table>
-                <span> Total de Contas: </span>
-                {{-- //{{ $contas->links() }} --}}
+                
+                    <span class="d-flex justify-content-end">Registros : {{ $qtdContas }} </span>
+                {{-- {{ $contas->links() }} --}}
+            </div>
+            <div id="totais">
             </div>
         </div>
     </div>

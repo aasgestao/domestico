@@ -28,13 +28,16 @@ class LoginController extends Controller
 
         //dd($teste);
 
-        $authenticated = Auth::attempt(['email' => $loginRequest->email, 'password' => $loginRequest->password]);
+        $authenticated = Auth::attempt([
+            'email' => $loginRequest->email, 
+            'password' => $loginRequest->password
+        ]);
 
         //dd($authenticated);
         if (!$authenticated) {
             //redirecionar para a pagina de login
 
-            return back()->withInput()->with('error', "Email ou senha incorreto");
+            return back()->withInput()->with('error', "Email ou senha incorreto.");
 
 
         }
